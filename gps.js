@@ -100,13 +100,13 @@ class Gps {
         const R = Math.PI / 180;
         const currentLat = pos.coords.latitude;
 	    const currentLng = pos.coords.longitude;
-        const length = targetPosArray.length;
+        const length = this.targetPosArray.length;
         let i = 0;
         let data = null;
         let range = this.distanceWithinRange;
         for (;i < length; i++)
         {
-            data = targetGpsDataArray[i];
+            data = this.targetGpsDataArray[i];
             range = data.distanceWithinRange !== -1 ? data.distanceWithinRange : range;
             
             // 2点の経度の差を計算 ( ラジアン )
