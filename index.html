@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+  <meta name="application-name" content="Zappar GPS2 Application">
+  <meta name="robots" content="noindex" />
+  <meta name="robots" content="nofollow">
+  <title>GPS Sample Application</title>
+  <script type="text/javascript" src="gps.js"></script>
+  <script type="text/javascript">
+     const success = function (gps){
+	       console.log(gps);
+         var mydiv = document.getElementById("view");
+         var gpsData = 
+            gps.position.coords.latitude + "," + 
+            gps.position.coords.longitude + ","; 
+         
+         var sData = ""; 
+         for (var i = 0; i < gps.targetGpsDataArray.length; i++)
+         {
+              var data = gps.targetGpsDataArray[i];
+              sData+= data.lat + "," + data.lng + "," + data.dtg + "," + data.withinRange + "<br>";
+         }
+         mydiv.innerHTML = "<h3>"+ gpsData +"</h3><br>" + sData;
+	   }
+	   const error = function showErr(gps){
+		     console.log(gps);
+     }
+
+     let arr = [];
+     arr.push(new GpsData(34.647407643868696, 135.53490346429527));
+	   const gps = new Gps(arr);
+     gps.successFunc = success;
+     gps.errorFunc = error;
+     gps.distanceWithinRange = 10;
+     gps.start();
+  </script>
+</head>
+<body>
+<div id="view"></div>
+</body>
+</html>
