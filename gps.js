@@ -56,7 +56,7 @@ class Gps {
     _innerSuccessFunction(pos) {
         this.position = pos;
         this._distance(pos);
-        if (this.successFunction)
+        if (this.successFunc)
         {
             this.successFunc(this);
         }
@@ -77,7 +77,7 @@ class Gps {
             default : 
                 errorMessage = err.message;
         }
-        if (this.errorFunction)
+        if (this.errorFunc)
         {
             this.successFunc(this);
         }
