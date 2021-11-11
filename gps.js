@@ -100,7 +100,7 @@ class Gps {
         const R = Math.PI / 180;
         const currentLat = pos.coords.latitude;
 	    const currentLng = pos.coords.longitude;
-        const length = this.targetPosArray.length;
+        const length = this.targetGpsDataArray.length;
         let i = 0;
         let data = null;
         let range = this.distanceWithinRange;
