@@ -26,20 +26,51 @@
          mydiv.innerHTML=
             "現在の緯度経度<br>" + gpsData + "<br><br>" + 
             "現在地との距離<br>" + sData + "<br>";
-	   }
-	   const error = function showErr(gps){
+	  }
+	  const error = function showErr(gps){
 		     console.log(gps);
      }
 
+     
+
      let arr = [];
-     arr.push(new GpsData("自宅", 34.647575, 135.534916));
-     arr.push(new GpsData("心斎橋フロントビル", 34.675504, 135.501845));
+     let type = getParam('type');
+     
+     if (type === "tamaen")
+     {
+        arr.push(new GpsData("LOMITA", 33.789589, -118.313876));
+        arr.push(new GpsData("GARDENA", 33.890679, -118.309061));
+     }
+     else if (type === "oneplanet")
+     {
+        arr.push(new GpsData("本社", 35.375297, 140.362102));
+     }
+     else if (type === "st")
+     {
+        arr.push(new GpsData("自宅", 34.647575, 135.534916));
+        arr.push(new GpsData("心斎橋フロントビル", 34.675504, 135.501845));
+     }
+     else
+     {
+        arr.push(new GpsData("東京タワー", 35.658584, 139.7454316));
+        arr.push(new GpsData("大阪城", 34.6880646, 135.5229526));
+     }
      
      const gps = new Gps(arr);
      gps.successFunc = success;
      gps.errorFunc = error;
      gps.distanceWithinRange = 25;
      gps.start();
+
+     function getParam(name) {
+         var url = window.location.href;
+         name = name.replace(/[\[\]]/g, "\\$&");
+         var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+         if (!results) return null;
+         if (!results[2]) return '';
+         return decodeURIComponent(results[2].replace(/\+/g, " "));
+      }
   </script>
 </head>
 <body>
