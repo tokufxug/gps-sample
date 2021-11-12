@@ -7,7 +7,7 @@
   <meta name="robots" content="noindex" />
   <meta name="robots" content="nofollow">
   <title>GPS Sample Application</title>
-  <script type="text/javascript" src="gps.js?a=234"></script>
+  <script type="text/javascript" src="gps.js?a=5678"></script>
   <script type="text/javascript">
      const success = function (gps){
 	       console.log(gps);
@@ -29,7 +29,8 @@
      }
 
      let arr = [];
-     arr.push(new GpsData(34.647575, 135.534916));	  
+     arr.push(new GpsData(34.6475745, 135.5327223));
+     33.9924444
      const gps = new Gps(arr);
      gps.successFunc = success;
      gps.errorFunc = error;
