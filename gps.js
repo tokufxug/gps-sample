@@ -79,7 +79,7 @@ class Gps {
         }
         if (this.errorFunc)
         {
-            this.successFunc(this);
+            this.errorFunc(this);
         }
     }
 
