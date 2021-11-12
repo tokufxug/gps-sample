@@ -29,11 +29,11 @@
      }
 
      let arr = [];
-     arr.push(new GpsData(34.647407643868696, 135.53490346429527));
-	   const gps = new Gps(arr);
+     arr.push(new GpsData(34.647575, 135.534916));	  
+     const gps = new Gps(arr);
      gps.successFunc = success;
      gps.errorFunc = error;
-     gps.distanceWithinRange = 10;
+     gps.distanceWithinRange = 25;
      gps.start();
   </script>
 </head>
