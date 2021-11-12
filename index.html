@@ -14,13 +14,13 @@
          var mydiv = document.getElementById("view");
          var gpsData = 
             gps.position.coords.latitude + "," + 
-            gps.position.coords.longitude + ","; 
+            gps.position.coords.longitude; 
          
          var sData = ""; 
          for (var i = 0; i < gps.targetGpsDataArray.length; i++)
          {
               var data = gps.targetGpsDataArray[i];
-              sData+= data.name + "," + data.lat + "," + data.lng + "," + data.dtg + "," + data.withinRange + "m<br>";
+              sData+= data.name + ":<b>" + data.dtg + "メートル</b>(" + data.lat + "," + data.lng + ")";
          }
          
          mydiv.innerHTML=
@@ -33,6 +33,7 @@
 
      let arr = [];
      arr.push(new GpsData("自宅", 34.647575, 135.534916));
+     arr.push(new GpsData("心斎橋フロントビル", 34.675504, 135.501845));
      
      const gps = new Gps(arr);
      gps.successFunc = success;
