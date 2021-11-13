@@ -10,7 +10,7 @@
   <script type="text/javascript" src="gps.js?a=567fsdffsfsdfds8"></script>
   <script type="text/javascript">
      const success = function (gps){
-	       console.log(gps);
+	      console.log(gps);
          var mydiv = document.getElementById("view");
          var gpsData = 
             gps.position.coords.latitude + "," + 
@@ -31,8 +31,6 @@
 		     console.log(gps);
      }
 
-     
-
      let arr = [];
      let type = getParam('type');
      
@@ -49,6 +47,12 @@
      else if (type === "st")
      {
         arr.push(new GpsData("自宅", 34.647575, 135.534916));
+        arr.push(new GpsData("寺田町駅",  34.647499, 135.524093));
+        arr.push(new GpsData("天王寺駅",  34.646332, 135.515234));
+        arr.push(new GpsData("ザウルス",  34.662834, 135.505726));
+        arr.push(new GpsData("なんば駅",  34.667214, 135.500889));
+        arr.push(new GpsData("なんばCity",34.6646966,  135.501151));
+        arr.push(new GpsData("心斎橋駅",  34.673581, 135.50063));
         arr.push(new GpsData("心斎橋フロントビル", 34.675504, 135.501845));
      }
      else
@@ -61,6 +65,13 @@
      gps.successFunc = success;
      gps.errorFunc = error;
      gps.distanceWithinRange = 25;
+     
+     let g = getParam('g');
+     if (g === 'GRS80')
+     {
+        gps.geodeticSystem = g;
+     }
+     
      gps.start();
 
      function getParam(name) {

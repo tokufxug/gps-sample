@@ -12,6 +12,7 @@ class Gps {
         this.errorMessage = null;
         this.distanceWithinRange = 0;
         this.watchId = -1;
+        this.geodeticSystem = 'WGS84';
     }
 
     start()
@@ -94,8 +95,8 @@ class Gps {
         //const RX = 6377397.155000  // 赤道半径
         //const RY = 6356079.000000  // 極半径
         // WGS84 ( GPS ) <- Google はこの測地系
-        const RX = 6378137.000000  // 赤道半径
-        const RY = 6356752.314245  // 極半径
+        let RX = 6378137.000000  // 赤道半径
+        let RY = 6356752.314245  // 極半径
 
         const R = Math.PI / 180;
         const currentLat = pos.coords.latitude;
@@ -104,6 +105,12 @@ class Gps {
         let i = 0;
         let data = null;
         let range = this.distanceWithinRange;
+
+        if (this.geodeticSystem === 'GRS80')
+        {
+             RX = 6378137.000000  // 赤道半径
+             RY = 6356752.314140  // 極半径
+        }
         for (;i < length; i++)
         {
             data = this.targetGpsDataArray[i];
