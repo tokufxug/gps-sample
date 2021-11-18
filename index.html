@@ -7,7 +7,7 @@
   <meta name="robots" content="noindex" />
   <meta name="robots" content="nofollow">
   <title>GPS Sample Application</title>
-  <script type="text/javascript" src="gps.js?a=20211113130000"></script>
+  <script type="text/javascript" src="gps.js?a=20211118132100"></script>
   <script type="text/javascript">
      const success = function (gps){
 	      console.log(gps);
@@ -26,9 +26,11 @@
          mydiv.innerHTML=
             "現在の緯度経度<br>" + gpsData + "<br><br>" + 
             "現在地との距離<br>" + sData + "<br>";
+         document.getElementById("error").innerHTML = "";
 	  }
 	  const error = function showErr(gps){
 		     console.log(gps);
+           document.getElementById("error").innerHTML = "Error Code:" + gps.errorCode + " <br />Error Message:" + gps.errorMessage;
      }
 
      let arr = [];
@@ -86,6 +88,7 @@
   </script>
 </head>
 <body>
-<div id="view"></div>
+<div id="view"></div><br>
+<div id="error"></div><br>
 </body>
 </html>

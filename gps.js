@@ -2,7 +2,23 @@
 
 class Gps {
     
-    constructor(targetGpsDataArray) {
+    static ERROR_CODE_ALLOWED_LOCATION = 1;
+    static ERROR_CODE_NOT_DETERMINED_LOCATION = 2;
+    static ERROR_CODE_TIMEOUT = 3;
+
+    static LANGUAGE_JAPANESE = 'JAPANESE';
+    static LANGUAGE_ENGLISH = 'ENGLISH';
+
+    static ERROR_MSG_ALLOWED_LOCATION_JAPANESE = '位置情報の利用が許可されていません';
+    static ERROR_MSG_NOT_DETERMINED_LOCATION_JAPANESE = 'デバイスの位置が判定できません';
+    static ERROR_MSG_TIMEOUT_JAPANESE = 'タイムアウトしました';
+
+    static ERROR_MSG_ALLOWED_LOCATION_ENGLISH = 'You are not allowed to use location information.';
+    static ERROR_MSG_NOT_DETERMINED_LOCATION_ENGLISH = 'Unable to determine the location of the device.';
+    static ERROR_MSG_TIMEOUT_ENGLISH = 'Timeout, sir.';
+    
+    constructor(targetGpsDataArray, language) {
+        this.language = language ? language : Gps.LANGUAGE_JAPANESE;
         this.isStart = false;
         this.successFunc = null;
         this.errorFunc = null;
@@ -66,17 +82,20 @@ class Gps {
     _innerErrorFunction(err) {
         this.errorCode = err.code;
         switch(err.code){
-            case 1 : 
-                this.errorMessage = "位置情報の利用が許可されていません";
+            case Gps.ERROR_CODE_ALLOWED_LOCATION:
+                this.errorMessage = 
+                    this.language === Gps.LANGUAGE_ENGLISH ? Gps.ERROR_MSG_ALLOWED_LOCATION_ENGLISH : Gps.ERROR_MSG_ALLOWED_LOCATION_JAPANESE;
                 break; 
-            case 2 : 
-                this.errorMessage = "デバイスの位置が判定できません";
+            case Gps.ERROR_CODE_NOT_DETERMINED_LOCATION: 
+                this.errorMessage = 
+                    this.language === Gps.LANGUAGE_ENGLISH ? Gps.ERROR_MSG_NOT_DETERMINED_LOCATION_ENGLISH : Gps.ERROR_MSG_NOT_DETERMINED_LOCATION_JAPANESE;
                 break;
-            case 3 : 
-                this.errorMessage = "タイムアウトしました";
+            case Gps.ERROR_CODE_TIMEOUT: 
+                this.errorMessage = 
+                    this.language === Gps.LANGUAGE_ENGLISH ? Gps.ERROR_MSG_TIMEOUT_ENGLISH : Gps.ERROR_MSG_TIMEOUT_JAPANESE;
                 break;
             default : 
-                errorMessage = err.message;
+                this.errorMessage = err.message;
         }
         if (this.errorFunc)
         {
@@ -88,12 +107,10 @@ class Gps {
     {
         // 測地系定数
         
-        // GRS80 ( 世界測地系 ) <- 現在の日本での標準
-        //const RX = 6378137.000000  // 赤道半径
-        //const RY = 6356752.314140  // 極半径
         // ベッセル楕円体 ( 旧日本測地系 ) <- 以前の日本での標準
         //const RX = 6377397.155000  // 赤道半径
         //const RY = 6356079.000000  // 極半径
+        
         // WGS84 ( GPS ) <- Google はこの測地系
         let RX = 6378137.000000  // 赤道半径
         let RY = 6356752.314245  // 極半径
@@ -106,6 +123,7 @@ class Gps {
         let data = null;
         let range = this.distanceWithinRange;
 
+        // GRS80 ( 世界測地系 ) <- 現在の日本での標準
         if (this.geodeticSystem === 'GRS80')
         {
              RX = 6378137.000000  // 赤道半径
